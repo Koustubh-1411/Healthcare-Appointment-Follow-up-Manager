@@ -1,0 +1,10 @@
+const express = require('express');
+const { protect, requireRole } = require('../middleware/auth');
+const { getMessages, postMessage, getSignals, postSignal } = require('../controllers/consultationController');
+const router = express.Router();
+router.use(protect, requireRole('patient', 'doctor'));
+router.get('/:appointmentId/messages', getMessages);
+router.post('/:appointmentId/messages', postMessage);
+router.get('/:appointmentId/signals', getSignals);
+router.post('/:appointmentId/signals', postSignal);
+module.exports = router;
